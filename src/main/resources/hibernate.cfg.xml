@@ -1,0 +1,18 @@
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate ConfigurationHibernate DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.driver_class">org.postgresql.Driver</property>
+        <property name="connection.url">jdbc:postgresql://localhost:5433/WeatherApp</property>
+        <property name="connection.username">postgres</property>
+        <property name="connection.password">3101</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+        <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
+
+
+        <mapping class="module.Locations"></mapping>
+        <mapping class="module.Users"></mapping>
+        <mapping class="module.Sessions"></mapping>
+    </session-factory>
+</hibernate-configuration>

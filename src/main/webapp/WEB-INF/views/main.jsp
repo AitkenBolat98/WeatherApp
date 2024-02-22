@@ -11,8 +11,8 @@
     <title>Main Page</title>
 </head>
 <body>
-<p><a href="registration.jsp">registration</a></p>
-<p><a href="authorization.jsp">authorization</a> </p>
+<p><a href="registration">registration</a></p>
+<p><a href="authorization">authorization</a> </p>
 <p>Enter the name of the city</p>
 <form method="post" action="main">
     <label for="location">

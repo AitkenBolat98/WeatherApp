@@ -1,0 +1,17 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Authorization</title>
+</head>
+<body>
+<h1>Authorization</h1>
+<form method="post" th:action="@{/WEB-INF/views/authorization.html}" th:object="${Users}">
+    <label for="login">Enter login
+        <input id="login" type="text" th:field="*{login.login}" required>
+    </label>
+    <label for="password">Enter password
+        <input id="password" th:field="*{password.password}" required>
+    </label>
+    <input type="submit" value="submit">
+</form>
+</body>
+</html>

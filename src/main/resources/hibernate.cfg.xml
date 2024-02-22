@@ -11,8 +11,8 @@
         <property name="format_sql">true</property>
 
 
-        <mapping class="module.Locations"></mapping>
-        <mapping class="module.Users"></mapping>
-        <mapping class="module.Sessions"></mapping>
+        <mapping class="module.Locations"/>
+        <mapping class="module.Users"/>
+        <mapping class="module.Sessions"/>
     </session-factory>
 </hibernate-configuration>

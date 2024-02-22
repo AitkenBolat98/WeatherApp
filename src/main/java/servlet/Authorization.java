@@ -9,7 +9,7 @@ import java.io.IOException;
 public class Authorization extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/authorization.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/authorization.html");
             dispatcher.forward(request,response);
     }
 

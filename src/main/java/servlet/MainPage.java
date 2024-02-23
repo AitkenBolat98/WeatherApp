@@ -9,7 +9,7 @@ import java.io.IOException;
 public class MainPage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/main.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/main.html");
             dispatcher.forward(request,response);
     }
 

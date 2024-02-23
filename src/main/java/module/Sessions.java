@@ -3,7 +3,8 @@ package module;
 import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity(name="sessions")
 @Getter
@@ -14,10 +15,11 @@ import java.sql.Date;
 public class Sessions {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id",nullable = false)
     private Integer id;
     @OneToOne()
     @JoinColumn(name="user_id")
     private Users user;
-    @Column(name= "expired_at")
-    private Date expiredAt;
+    @Column(name= "expired_at",nullable = false)
+    private LocalDateTime expiredAt;
 }

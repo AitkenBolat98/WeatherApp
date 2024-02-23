@@ -1,12 +1,18 @@
 package service;
 
+import module.Sessions;
 import module.Users;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import javax.servlet.http.HttpServletResponse;
+
 public class RegistrationService extends Config {
-    public void addUser(String login,String password){
+    SessionService sessionService = new SessionService();
+    CookieService cookieService = new CookieService();
+
+    public void addUser(String login, String password, HttpServletResponse response){
 
         Configuration configuration = getConfiguration();
         SessionFactory sessionFactory = configuration.buildSessionFactory();
@@ -20,6 +26,8 @@ public class RegistrationService extends Config {
             session.beginTransaction();
             session.save(user);
             session.getTransaction().commit();
+            Sessions sessionModule = sessionService.createSession(user);
+            cookieService.createCookie(response,sessionModule);
         }catch (Exception e){
             System.out.println("user creation exception" + e);
         }finally {

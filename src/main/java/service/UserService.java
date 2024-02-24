@@ -50,4 +50,22 @@ public class UserService extends Config{
         }
         return password;
     }
+    public Users getUserByLogin(String login){
+        Configuration configuration = getConfiguration();
+        SessionFactory sessionFactory = configuration.buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        Users user = null;
+        try {
+            session.beginTransaction();
+            String hql = "Select u from users u WHERE u.login=:login";
+            Query query = session.createQuery(hql);
+            query.setParameter("login",login);
+            user = (Users) query.uniqueResult();
+        }catch (Exception e){
+            log.error(e.getMessage());
+        }finally {
+            session.close();
+        }
+        return user;
+    }
 }

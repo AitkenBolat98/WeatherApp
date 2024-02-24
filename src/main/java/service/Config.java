@@ -12,7 +12,7 @@ public class Config {
         configuration.addAnnotatedClass(Users.class);
         configuration.addAnnotatedClass(Session.class);
         configuration.addAnnotatedClass(Locations.class);
-        configuration.configure();
+        configuration.configure("hibernate.cfg.xml");
         return configuration;
     }
 }

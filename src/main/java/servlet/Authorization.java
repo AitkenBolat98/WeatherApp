@@ -1,7 +1,10 @@
 package servlet;
 
-import Util.PasswordUtil;
-import org.mindrot.jbcrypt.BCrypt;
+
+import Util.ThymeleafUtil;
+import module.Sessions;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.WebContext;
 import service.AuthorizationService;
 import service.UserService;
 
@@ -26,7 +29,12 @@ public class Authorization extends HttpServlet {
         String password = request.getParameter("password");
         if(userService.isUserExist(login) == true){
             if(authorizationService.isPasswordSame(login,password)){
-
+                Sessions session=authorizationService.login(request,response);
+                TemplateEngine templateEngine = ThymeleafUtil.createTemplateEngine(request.getServletContext());
+                WebContext webContext = new WebContext(request,response,request.getServletContext());
+                webContext.setVariable("login",login);
+                webContext.setVariable("password",password);
+                templateEngine.process("registration",webContext,response.getWriter());
             }else {
 
             }

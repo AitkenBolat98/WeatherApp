@@ -4,7 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.UUID;
 
 @Entity(name="sessions")
 @Getter
@@ -14,12 +14,11 @@ import java.util.Date;
 @NoArgsConstructor
 public class Sessions {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",nullable = false)
-    private Integer id;
+    private UUID id;
     @OneToOne()
     @JoinColumn(name="user_id")
     private Users user;
-    @Column(name= "expired_at",nullable = false)
+    @Column(name= "expires_at",nullable = false)
     private LocalDateTime expiredAt;
 }

@@ -30,16 +30,19 @@ public class Registration extends HttpServlet {
         System.out.println("reg post");
         String login = request.getParameter("login");
         String password = PasswordUtil.hashPassword(request.getParameter("password"));
+        TemplateEngine templateEngine = ThymeleafUtil.createTemplateEngine(request.getServletContext());
+        WebContext webContext = new WebContext(request,response,request.getServletContext());
         if(userService.isUserExist(login) == false){
-            TemplateEngine templateEngine = ThymeleafUtil.createTemplateEngine(request.getServletContext());
-            WebContext webContext = new WebContext(request,response,request.getServletContext());
             webContext.setVariable("login",login);
             webContext.setVariable("password",password);
-            templateEngine.process("registration",webContext,response.getWriter());
+            webContext.setVariable("userExist",false);
             registrationService.addUser(login,password,response);
+            response.sendRedirect(request.getContextPath() + "/main");
         }else {
-
+            webContext.setVariable("userExist",true);
         }
+        templateEngine.process("registration",webContext,response.getWriter());
+
 
 
 

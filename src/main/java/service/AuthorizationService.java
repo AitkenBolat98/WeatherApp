@@ -28,13 +28,29 @@ public class AuthorizationService {
         }return false;
     }
     public Sessions login(HttpServletRequest request, HttpServletResponse response){
-        if(request.getCookies().length == 1){
-            String login = request.getParameter("login");
-            Users user = userService.getUserByLogin(login);
-            Sessions session = sessionService.createSession(user);
-            cookieService.createCookie(response,session);
-            return session;
-        }else {
+            if(request.getCookies() == null || request.getCookies().length == 1){
+                String login = request.getParameter("login");
+                Users user = userService.getUserByLogin(login);
+                Sessions session = sessionService.createSession(user);
+                cookieService.createCookie(response,session);
+                return session;
+            }else {
+                Cookie[] cookies =request.getCookies();
+                Cookie searchedCookie = null;
+                for (Cookie cookie:cookies){
+                    if("weatherApp".equals(cookie.getName())){
+                        searchedCookie=cookie;
+                    }
+                }
+                String id = searchedCookie.getValue();
+                return sessionService.getSessionById(UUID.fromString(id));
+
+
+            }
+
+        }
+    public void logout(HttpServletRequest request,HttpServletResponse response){
+        if(request.getCookies()!= null){
             Cookie[] cookies =request.getCookies();
             Cookie searchedCookie = null;
             for (Cookie cookie:cookies){
@@ -42,12 +58,10 @@ public class AuthorizationService {
                     searchedCookie=cookie;
                 }
             }
-            if(searchedCookie == null){
-            }
             String id = searchedCookie.getValue();
-            return sessionService.getSessionById(UUID.fromString(id));
-
+            sessionService.deleteSession(UUID.fromString(id));
+            searchedCookie.setMaxAge(0);
+            response.addCookie(searchedCookie);
         }
     }
-
 }

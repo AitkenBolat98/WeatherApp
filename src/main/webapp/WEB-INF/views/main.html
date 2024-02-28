@@ -1,10 +1,17 @@
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Main Page</title>
 </head>
 <body>
-<p><a href="registration">registration</a></p>
-<p><a href="authorization">authorization</a> </p>
+<div th:if="${userAuthorized}">
+    <p>Welcome</p>
+    <a href="logout">logout</a>
+</div>
+<div th:unless="${userAuthorized}">
+    <p><a href="registration">registration</a></p>
+    <p><a href="authorization">authorization</a> </p>
+</div>
+
 <p>Enter the name of the city</p>
 <form method="post" action="main">
     <label for="location">

@@ -27,17 +27,23 @@ public class Authorization extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
+        TemplateEngine templateEngine = ThymeleafUtil.createTemplateEngine(request.getServletContext());
+        WebContext webContext = new WebContext(request,response,request.getServletContext());
         if(userService.isUserExist(login) == true){
             if(authorizationService.isPasswordSame(login,password)){
                 Sessions session=authorizationService.login(request,response);
-                TemplateEngine templateEngine = ThymeleafUtil.createTemplateEngine(request.getServletContext());
-                WebContext webContext = new WebContext(request,response,request.getServletContext());
-                webContext.setVariable("login",login);
-                webContext.setVariable("password",password);
-                templateEngine.process("registration",webContext,response.getWriter());
+                webContext.setVariable("Alogin",login);
+                webContext.setVariable("Apassword",password);
+                webContext.setVariable("nouser",false);
+                response.sendRedirect(request.getContextPath() + "/main");
             }else {
-
+                webContext.setVariable("isLoginCorrect",false);
+                webContext.setVariable("nouser",true);
             }
+        }else {
+            webContext.setVariable("nouser",true);
         }
+        templateEngine.process("authorization",webContext,response.getWriter());
+
     }
 }

@@ -8,6 +8,8 @@
 <form method="post" th:action="@{/registration}" >
     <label for="login">Enter login
         <input id="login" type="text" name="login" th:value="*{login}" required>
+        <i class="fa fa-user"></i>
+        <b th:text="${userExist} ? 'Incorrect login or password' : ''"></b>
     </label>
     <label for="password">Enter password
         <input id="password" name="password" th:value="*{password}" required>

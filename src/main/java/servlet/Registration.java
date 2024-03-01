@@ -20,14 +20,12 @@ public class Registration extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("reg get");
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/registration.html");
         dispatcher.forward(request,response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("reg post");
         String login = request.getParameter("login");
         String password = PasswordUtil.hashPassword(request.getParameter("password"));
         TemplateEngine templateEngine = ThymeleafUtil.createTemplateEngine(request.getServletContext());

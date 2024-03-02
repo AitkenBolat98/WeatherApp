@@ -19,5 +19,24 @@
     </label>
     <input type="submit" value="submit">
 </form>
+
+
+<form method="post" action="/save-forecast" th:object="${search}">
+    <div th:if="${search != null}">
+        <p th:text="'Name' + ${search.name}"></p>
+        <p th:text="'Temperature: ' + ${search.temperature} + '°C'"></p>
+        <p th:text="'Feels Like: ' + ${search.feels_like} + '°C'"></p>
+        <p th:text="'Wind Speed: ' + ${search.windSpeed} + ' m/s'"></p>
+        <p th:text="'Wind Degree: ' + ${search.windDegree} + '°'"></p>
+    </div>
+    <button type="submit">Save Forecast</button>
+</form>
+<div th:each="location : ${userLocations}">
+    <p th:text="${location.name}"></p>
+    <p th:text="${location.temperature} + '°C'"></p>
+    <p th:text="${location.feels_like} + '°C'"></p>
+    <p th:text="${location.windSpeed} + ' m/s, ' + ${location.windDegree} + '°'"></p>
+</div>
+
 </body>
 </html>

@@ -36,4 +36,12 @@
     <servlet-name>Logout</servlet-name>
     <url-pattern>/logout</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>LocationServlet</servlet-name>
+    <servlet-class>servlet.LocationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LocationServlet</servlet-name>
+    <url-pattern>/main/location</url-pattern>
+  </servlet-mapping>
 </web-app>

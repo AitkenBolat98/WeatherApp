@@ -38,10 +38,18 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>LocationServlet</servlet-name>
-    <servlet-class>servlet.LocationServlet</servlet-class>
+    <servlet-class>servlet.SaveLocationServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>LocationServlet</servlet-name>
-    <url-pattern>/main/location</url-pattern>
+    <url-pattern>/main/save-location</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>DeleteLocationServlet</servlet-name>
+    <servlet-class>servlet.DeleteLocationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteLocationServlet</servlet-name>
+    <url-pattern>/main/delete-location</url-pattern>
   </servlet-mapping>
 </web-app>

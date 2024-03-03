@@ -3,6 +3,7 @@ package module;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "users")
 @Getter
@@ -23,6 +24,6 @@ public class Users {
     @OneToOne(mappedBy = "user")
     private Sessions session;
 
-    @OneToOne(mappedBy = "user")
-    private Locations location;
+    @OneToMany(mappedBy = "user")
+    private List<Locations> location;
 }

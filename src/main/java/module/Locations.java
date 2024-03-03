@@ -18,7 +18,7 @@ public class Locations {
     @Column
     private String name;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private Users user;
 

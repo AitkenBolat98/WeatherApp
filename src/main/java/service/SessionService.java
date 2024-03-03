@@ -113,12 +113,4 @@ public class SessionService extends Config{
         String id = searchedCookie.getValue();
         return getSessionById(UUID.fromString(id));
     }
-    public boolean isSessionValid(Sessions session){
-        LocalDateTime now = LocalDateTime.now();
-        if(now.isBefore(session.getExpiredAt())){
-            return true;
-        }else {
-            return false;
-        }
-    }
 }

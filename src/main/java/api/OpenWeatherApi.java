@@ -50,7 +50,7 @@ public class OpenWeatherApi {
 
         return dto;
     }
-    public WeatherDto getWeatherByCoordinates(Double latitude,Double longitude){
+    public WeatherDto getWeatherByCoordinates(Double longitude,Double latitude){
         String url = "https://api.openweathermap.org/data/2.5/weather?" +
                 "lat=" + latitude +
                 "&" +
@@ -73,6 +73,7 @@ public class OpenWeatherApi {
         HttpResponse<String> response = null;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            log.info("OpenWeatherApi response JSON: " + response.body());
         }catch (Exception e){
             log.error("OpenWeatherApi response exception " + e);
         }

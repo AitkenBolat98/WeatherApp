@@ -23,8 +23,8 @@ public class LocationService extends Config {
         LocationDTO locationDTO = api.getLocationByCityName(cityName);
         return locationDTO;
     }
-    public WeatherDto getWeatherForecast(Double latitude,Double longitude){
-        WeatherDto weatherDto = api.getWeatherByCoordinates(latitude,longitude);
+    public WeatherDto getWeatherForecast(Double longitude,Double latitude){
+        WeatherDto weatherDto = api.getWeatherByCoordinates(longitude,latitude);
         return weatherDto;
     }
 
@@ -33,8 +33,8 @@ public class LocationService extends Config {
                 .builder()
                 .user(user)
                 .name(dto.getName())
-                .latitude(dto.getCoord().get("latitude"))
-                .longitude(dto.getCoord().get("longitude"))
+                .latitude(dto.getCoord().get("lat"))
+                .longitude(dto.getCoord().get("lon"))
                 .build();
         Configuration configuration = getConfiguration();
         SessionFactory sessionFactory = configuration.buildSessionFactory();
@@ -60,8 +60,22 @@ public class LocationService extends Config {
                 .build();
         return result;
     }
-    public void deleteLocation(){
-
+    public void deleteLocationByName(String name){
+        Configuration configuration = getConfiguration();
+        SessionFactory sessionFactory = configuration.buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        try {
+            session.beginTransaction();
+            String hql = "DELETE from Locations l WHERE l.name =: name";
+            Query query =session.createQuery(hql);
+            query.setParameter("name",name);
+            query.executeUpdate();
+            session.getTransaction().commit();
+        }catch (Exception e){
+            log.error("delete location " + e );
+        }finally {
+            session.close();
+        }
     }
     public List<Locations> getAllLocationsByUser(Users user){
         Configuration configuration = getConfiguration();
@@ -84,7 +98,7 @@ public class LocationService extends Config {
     public List<ForecastDTO> getForecastsForAllSavedLocations(List<Locations> locationsList){
         List<ForecastDTO> result = new ArrayList<>();
         for(Locations location:locationsList){
-            WeatherDto weatherDto = getWeatherForecast(location.getLatitude(),location.getLongitude());
+            WeatherDto weatherDto = getWeatherForecast(location.getLongitude(),location.getLatitude());
             ForecastDTO forecastDTO = forecast(weatherDto);
             result.add(forecastDTO);
         }

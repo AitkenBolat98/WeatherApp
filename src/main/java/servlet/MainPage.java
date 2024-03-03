@@ -25,12 +25,13 @@ public class MainPage extends HttpServlet {
     private LocationService locationService = new LocationService();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            Sessions session = sessionService.getSessionByCookies(request.getCookies());
-            TemplateEngine templateEngine = ThymeleafUtil.createTemplateEngine(request.getServletContext());
-            WebContext webContext = new WebContext(request,response,request.getServletContext());
-            List<Locations> locationsList = locationService.getAllLocationsByUser(session.getUser());
-            List<ForecastDTO> forecastDTOList = locationService.getForecastsForAllSavedLocations(locationsList);
+        TemplateEngine templateEngine = ThymeleafUtil.createTemplateEngine(request.getServletContext());
+        WebContext webContext = new WebContext(request,response,request.getServletContext());
+        Sessions session = sessionService.getSessionByCookies(request.getCookies());
+
             if(session!= null) {
+                List<Locations> locationsList = locationService.getAllLocationsByUser(session.getUser());
+                List<ForecastDTO> forecastDTOList = locationService.getForecastsForAllSavedLocations(locationsList);
                 webContext.setVariable("userAuthorized",true);
                 if(forecastDTOList!=null){
                     webContext.setVariable("userLocations",forecastDTOList);
@@ -43,6 +44,7 @@ public class MainPage extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         String city = request.getParameter("location");
         LocationDTO locationDTO = locationService.getLocationByName(city);
         WeatherDto  weatherDto =locationService.getWeatherForecast(locationDTO

@@ -8,7 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class ForecastDTO {
-
     private String name;
     private Double temperature;
     private Double feels_like;

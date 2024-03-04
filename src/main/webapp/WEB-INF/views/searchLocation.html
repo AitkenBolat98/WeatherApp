@@ -21,7 +21,7 @@
 </form>
 
 
-<form method="post" action="/WeatherApp/main/save-location" th:object="${search}">
+<form method="post" action="/WeatherApp/main/search" th:object="${search}">
     <div th:if="${search != null}">
         <p th:text="'Name' + ${search.name}"></p>
         <p th:text="'Temperature: ' + ${search.temperature} + '°C'"></p>
@@ -32,17 +32,7 @@
     </div>
     <button type="submit">Save Forecast</button>
 </form>
-<div th:each="location : ${userLocations}">
-    <form method="post" action="main/delete-location">
-        <p th:hidden="id"></p>
-        <p th:text="${location.name}"></p>
-        <p th:text="${location.temperature} + '°C'"></p>
-        <p th:text="${location.feels_like} + '°C'"></p>
-        <p th:text="${location.windSpeed} + ' m/s, ' + ${location.windDegree} + '°'"></p>
-        <input type="hidden" name="cityName" th:value="${location.name}">
-        <button type="submit">Delete</button>
-    </form>
-</div>
+
 
 
 </body>

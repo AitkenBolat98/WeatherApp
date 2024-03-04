@@ -30,7 +30,6 @@
         <p th:text="'Wind Degree: ' + ${search.windDegree} + '°'"></p>
         <input type="hidden" th:value="${search.name}" name="search.name" />
     </div>
-    <button type="submit">Save Forecast</button>
 </form>
     <div th:each="location : ${userLocations}">
         <form method="post" action="main/delete-location">
